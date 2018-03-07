@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,9 +40,15 @@ public class ProcedureTest {
 		}
 	}
 
+	/**
+	create procedure selectAll()
+	BEGIN
+		select * from t_user;
+	end; 
+	 */
 	@Test
 	public void selectAll() {
-		String sql = "call selectAll";
+		String sql = "call selectAll()";
 		try {
 			CallableStatement cstmt = conn.prepareCall(sql);
 			cstmt.execute();
@@ -57,6 +64,15 @@ public class ProcedureTest {
 		}
 	}
 	
+	/**
+	create procedure selectWithParam(in username VARCHAR(20))
+	begin 
+		select *
+		from t_user t
+		where t.username like CONCAT('%',username,'%');
+	end; 
+	 * 
+	 */
 	@Test
 	public void selectWithParam() {
 		String param ="王";
@@ -77,21 +93,25 @@ public class ProcedureTest {
 		}
 	} 
 	
+	/**
+	create procedure paramAndOut(in username varchar(255),out count int(11))
+	BEGIN
+		select count(*) into count
+		from t_user t
+		where t.username like CONCAT('%',username,'%');
+	end;
+	 */
 	@Test
 	public void paramAndOut() {
-		String param ="王";
-		String sql = "call paramAndOut(?);";
+		String param ="1";
+		String sql = "call paramAndOut(?,?);";
 		try {
 			CallableStatement cstmt = conn.prepareCall(sql);
 			cstmt.setString(1, param);
+			cstmt.registerOutParameter(2, Types.INTEGER);
 			cstmt.execute();
-			rs = cstmt.getResultSet();
-			while(rs.next()) {
-				int id = rs.getInt(1);
-				String username = rs.getString(2);
-				String password = rs.getString(3);
-				System.out.println("id:"+id+" username:"+username+" password:"+password);
-			}
+			int count = cstmt.getInt(2);
+			System.out.println(count);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
