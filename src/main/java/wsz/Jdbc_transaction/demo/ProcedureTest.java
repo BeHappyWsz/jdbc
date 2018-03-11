@@ -79,7 +79,8 @@ public class ProcedureTest {
 		String sql = "call selectWithParam(?);";
 		try {
 			CallableStatement cstmt = conn.prepareCall(sql);
-			cstmt.setString(1, param);
+//			cstmt.setString(1, param); //查询不出数据
+			cstmt.setNString(1, param);//如果查询条件为中文,需要使用NString否则无法查询出数据?
 			cstmt.execute();
 			rs = cstmt.getResultSet();
 			while(rs.next()) {
