@@ -12,7 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import wsz.Jdbc_transaction.util.DButils;
-
+/**
+ * 存储过程调用
+ * @author wsz
+ * @date 2018年3月28日
+ */
 public class ProcedureTest {
 
 	private Connection conn = null;
