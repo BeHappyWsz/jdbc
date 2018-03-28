@@ -1,4 +1,4 @@
-package wsz.Jdbc_transaction.c3p0;
+package wsz.jdbc.c3p0;
 
 import java.sql.Connection;
 import java.sql.SQLException;

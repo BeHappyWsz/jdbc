@@ -1,4 +1,4 @@
-package wsz.Jdbc_transaction.c3p0;
+package wsz.jdbc.c3p0;
 /**
  *c3p0+common-dbutils进行数据库操作
  *@author  wsz

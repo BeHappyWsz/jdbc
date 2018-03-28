@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>wsz</groupId>
-  <artifactId>Jdbc_transaction</artifactId>
+  <artifactId>conn</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Jdbc_transaction</name>
+  <name>conn</name>
   <url>http://maven.apache.org</url>
 
   <properties>

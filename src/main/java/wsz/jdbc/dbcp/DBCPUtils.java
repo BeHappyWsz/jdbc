@@ -1,4 +1,4 @@
-package wsz.Jdbc_transaction.util;
+package wsz.jdbc.dbcp;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,14 +19,10 @@ public class DBCPUtils {
 	
 	private static final String config ="/dbcp.properties";
 	
-	public DBCPUtils() {
-		init();
-	}
-	
 	/**
 	 * 加载配置文件属性
 	 */
-	public void init() {
+	static{
 		Properties pops = new Properties();
 		try {
 			pops.load(Object.class.getResourceAsStream(config));
@@ -36,7 +32,11 @@ public class DBCPUtils {
 		}
 	}
 	
-	public Connection getConn() {
+	/**
+	 * 返回Connection以传统jdbc方式进行操作
+	 * @return
+	 */
+	public static Connection getConn() {
 		Connection conn = null;
 		if(DS != null) {
 			try {
@@ -48,8 +48,16 @@ public class DBCPUtils {
 		return conn;
 	}
 	
+	/**
+	 * 返回DataSource,操作方式与c3p0类似
+	 * @return
+	 */
+	public static DataSource getDataSource() {
+		return DS;
+	}
+	
 	public static void main(String[] args) {
-		DBCPUtils dbcpUtils = new DBCPUtils();
-		System.out.println(dbcpUtils.getConn());
+		System.out.println(DBCPUtils.getConn());
+		System.out.println(DBCPUtils.getDataSource());
 	}
 }

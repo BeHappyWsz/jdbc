@@ -1,4 +1,4 @@
-package wsz.Jdbc_transaction.demo;
+package wsz.jdbc.dbcp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import wsz.Jdbc_transaction.util.DBCPUtils;
 /**
  * 测试DBCP连接池
  * @author wsz
@@ -38,12 +36,16 @@ public class TestDBCP {
 	
 	@Before
 	public void init() {
-		DBCPUtils dbcp = new DBCPUtils();
-		conn= dbcp.getConn();
+		conn= DBCPUtils.getConn();
 	}
 	
 	@After
 	public void destory() {
-		
+		try {
+			if(null != conn)
+				conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

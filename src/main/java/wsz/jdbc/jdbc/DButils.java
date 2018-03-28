@@ -1,17 +1,30 @@
-package wsz.Jdbc_transaction.util;
+package wsz.jdbc.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ResourceBundle;
+/**
+ * jdbc连接
+ * @author wsz
+ * @date 2018年3月28日
+ */
 public class DButils {
 
-	private static String DRIVER_CLASS="com.mysql.jdbc.Driver";
-	private static String URL = "jdbc:mysql://localhost:3306/jdbc";
-	private static String USERNAME= "wsz";
-	private static String PASSWORD= "wsz";
+	private static String DRIVER_CLASS;
+	private static String URL ;
+	private static String USERNAME;
+	private static String PASSWORD;
+	
+	static {
+		ResourceBundle bundle = ResourceBundle.getBundle("db");
+		DRIVER_CLASS = bundle.getString("DRIVERCLASS");
+		URL 	     = bundle.getString("URL");
+		USERNAME     = bundle.getString("USERNAME");
+		PASSWORD     = bundle.getString("PASSWORD");
+	}
 	
 	public static Connection getConnection() {
 		Connection conn = null;
@@ -40,7 +53,6 @@ public class DButils {
 	}
 	
 	public static void main(String[] args) {
-		Connection conn = getConnection();
-		System.out.println(conn);
+		System.out.println(getConnection());
 	}
 }

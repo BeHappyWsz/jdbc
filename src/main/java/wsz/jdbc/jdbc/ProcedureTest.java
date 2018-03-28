@@ -1,8 +1,7 @@
-package wsz.Jdbc_transaction.demo;
+package wsz.jdbc.jdbc;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -10,8 +9,6 @@ import java.sql.Types;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import wsz.Jdbc_transaction.util.DButils;
 /**
  * 存储过程调用
  * @author wsz
@@ -20,8 +17,6 @@ import wsz.Jdbc_transaction.util.DButils;
 public class ProcedureTest {
 
 	private Connection conn = null;
-
-	private PreparedStatement stmt = null;
 	
 	private ResultSet rs = null;
 	
@@ -35,10 +30,6 @@ public class ProcedureTest {
 		try {
 			if(conn != null)
 				conn.close();
-			if(stmt != null)
-				stmt.close();
-			if(rs != null)
-				rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -79,7 +70,7 @@ public class ProcedureTest {
 	 */
 	@Test
 	public void selectWithParam() {
-		String param ="王";
+		String param ="1";
 		String sql = "call selectWithParam(?);";
 		try {
 			CallableStatement cstmt = conn.prepareCall(sql);
@@ -113,9 +104,9 @@ public class ProcedureTest {
 		try {
 			CallableStatement cstmt = conn.prepareCall(sql);
 			cstmt.setString(1, param);
-			cstmt.registerOutParameter(2, Types.INTEGER);
+			cstmt.registerOutParameter(2, Types.INTEGER);//返回的参数
 			cstmt.execute();
-			int count = cstmt.getInt(2);
+			int count = cstmt.getInt(2);//获取返回的参数
 			System.out.println(count);
 		} catch (SQLException e) {
 			e.printStackTrace();
